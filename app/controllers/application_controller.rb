@@ -1,5 +1,15 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  
+  #ログイン後に遷移するページを指定
+  def after_sign_in_path_for(resource)
+    about_path
+  end
+  
+  #ログアウト後に遷移するページを指定
+  def after_sign_out_path_for(resource)
+    about_path
+  end
 
   protected
 

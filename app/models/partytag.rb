@@ -1,0 +1,2 @@
+class Partytag < ApplicationRecord
+end
