@@ -40,6 +40,22 @@ ActiveRecord::Schema.define(version: 2024_01_15_151622) do
   end
 
   create_table "parties", force: :cascade do |t|
+    t.integer "weapon_id"
+    t.string "name"
+    t.text "introduction"
+    t.integer "turn_number"
+    t.integer "enemy_defence"
+    t.integer "airship"
+    t.integer "reactor"
+    t.integer "weekness"
+    t.integer "attacks"
+    t.integer "remainding_hp"
+    t.integer "optimus"
+    t.integer "optimus_friend"
+    t.integer "omega"
+    t.integer "omega_friend"
+    t.integer "element"
+    t.integer "element_friend"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
