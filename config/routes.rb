@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get "privacy" => "homes#privacy", as:"privacy"
   get "terms" => "homes#terms", as:"terms"
 
-  resources :parties, only: [:new, :create, :index, :show, :destroy]
+  resources :parties, only: [:new, :create, :index, :show, :destroy] do
+    resource :like, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy]
+  end
+  
+  resources :users, only: [:show, :edit, :update]
 
   devise_scope :user do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in"

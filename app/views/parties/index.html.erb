@@ -1,9 +1,1 @@
-<% @parties.each do |parties| %>
-  <div>
-    <%= image_tag parties.get_image %>
-    <p>投稿ユーザー画像：<%= image_tag 'sample-author1.jpg' %></p>
-    <p>編成：<%= parties.name %></p>
-    <p>説明：<%= parties.introduction %></p>
-    <p>ユーザーネーム：<%= parties.user.display_name %></p>
-  </div>
-<% end %>
+<%= render 'list', parties: @parties %>
