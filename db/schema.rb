@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2024_01_18_060341) do
 
   create_table "parties", force: :cascade do |t|
     t.integer "weapon_id"
+    t.integer "user_id"
     t.string "name"
     t.text "introduction"
     t.integer "turn_number"

@@ -7,6 +7,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @parties = @user.parties.page(params[:page])
   end
+  
+  def index
+    @users =User.all
+    @party = Party.new
+  end
 
   def edit
     @user = User.find(params[:id])
@@ -33,7 +38,8 @@ class UsersController < ApplicationController
 
   def ensure_guest_user
     @user = User.find(params[:id])
-    if @user.guest_user?      redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    if @user.guest_user?
+      redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end
 

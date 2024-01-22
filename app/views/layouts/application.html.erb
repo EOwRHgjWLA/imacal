@@ -11,9 +11,9 @@
   </head>
   <body class="d-flex flex-column vh-100">
     <%= render 'layouts/header' %>
+    <%= render "layouts/flash" %>
       <main class="mt-3 mb-auto">
-        <p id="notice"><%= notice %></p>
-        <div class="d-flex justify-content-center mb-2">
+        <div class="d-flex justify-content-center mb-3">
           <%= render 'searches/form' %>
         </div>
         <%= yield %>

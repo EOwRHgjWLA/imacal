@@ -1,9 +1,9 @@
 class PartiesController < ApplicationController
-  
+
   def new
     @party = Party.new
   end
-  
+
   def create
     @party = Party.new(party_params)
     @party.user_id = current_user.id
@@ -15,23 +15,20 @@ class PartiesController < ApplicationController
   end
 
   def index
-    @parties = Party.page(params[:page])
+    @parties = Party.page(params[:page]) || []
   end
-  
+
   def show
     @party = Party.find(params[:id])
     @comment = Comment.new
   end
-  
- def destroy
+
+  def destroy
     party = Party.find(params[:id])
     party.destroy
     redirect_to '/party'
   end
 
-  
-  
-  # 投稿データのストロングパラメータ
   private
 
   def party_params
@@ -50,7 +47,7 @@ class PartiesController < ApplicationController
                                   :omega,
                                   :omega_friend,
                                   :element,
-                                  :element_friend
+                                  :element_friend)
   end
-  
+
 end

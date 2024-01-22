@@ -21,6 +21,7 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
       user.display_name = "guestuser"
+      user.introduction = "ゲストログイン中"
     end
   end
 

@@ -1,9 +1,11 @@
-<% if obj.errors.any? %>
+<% if obj.respond_to?(:any?) && obj.any? %>
   <div id="error_explanation">
-    <h3><%= pluralize(obj.errors.count, "error") %> prohibited this obj from being saved:</h3>
+    <h3><%= pluralize(obj.flat_map(&:errors).count, "error") %> prohibited these objects from being saved:</h3>
     <ul>
-      <% obj.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <% obj.each do |record| %>
+        <% record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>

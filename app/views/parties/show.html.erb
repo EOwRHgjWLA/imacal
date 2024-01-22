@@ -1,42 +1,42 @@
-<div>
-  <%= image_tag @party.get_image %>
-  <p>ショップ名：<%= @party.name %></p>
-  <p>説明：<%= @party.introduction %></p>
-  <p>投稿ユーザー画像：<%= image_tag @party.user.get_profile_image(100,100) %></p>
-  <p>ユーザーネーム：<%= @party.user.display_name %></p>
-  <p>投稿日時：<%= @party.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @party.user == current_user %>
-    <%= link_to "削除", party_path(@party), method: :delete %>
-  <% end %>
-  <% if @party.favorited_by?(current_user) %>
-    <p>
-      <%= link_to post_image_favorite_path(@post_image), method: :delete do %>
-        ♥<%= @post_image.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to post_image_favorite_path(@post_image), method: :post do %>
-        ♡<%= @post_image.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-</div>
-
-<div>
-  <p>コメント件数：<%= @party.comments.count %></p>
-  <% @party.comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <%= post_comment.user.display_name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-    <% if post_comment.user == current_user %>
-      <%= link_to "削除", party_post_comment_path(post_comment.party, post_comment), method: :delete %>
-    <% end %>
-  <% end %>
-</div>
-<div>
-  <%= form_with model: [@party, @comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'users/info', user: @party.user %>
+      <h2 class="mt-3">New book</h2>
+      <%= render 'form', party: party.new %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+  		<h2>Book detail</h2>
+  		<table class='table'>
+  		  <tr>
+          <td><%= link_to(@party.user) do %>
+            <%= image_tag @party.user.get_profile_image, size:"100x100" %><br>
+            <%= @party.user.display_name %>
+            <% end %>
+          </td>
+          <td><%= link_to @party.name, @party %></td>
+          <td><%= @party.introduction %></td>
+          <td class=<%= "like-" + @party.id.to_s %> >
+            <%= render "likes/btn", party: @party %>
+          </td>
+          <td class="comments-counter">
+            <%= render "comments/counter", party: @party %>
+          </td>
+          <td class="view-count">閲覧数: <%= @party.view_counts.count %></td>
+          <% if @party.user == current_user %>
+            <td><%= link_to 'Edit', edit_parties_path(@party), class: "btn btn-sm btn-success edit_parties_#{@party.id}" %></td>
+            <td><%= link_to 'Destroy', @party, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_parties_#{@party.id}" %></td>
+          <% end %>
+        </tr>
+      </table>
+      
+      <div class="comments-index">
+        <%= render "comments/index", party: @party %>
+      </div>
+      
+      <%= render "comments/form", party: @party, comment: @comment %>
+      
+    </div>
+  </div>
 </div>

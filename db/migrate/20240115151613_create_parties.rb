@@ -2,6 +2,7 @@ class CreateParties < ActiveRecord::Migration[6.1]
   def change
     create_table :parties do |t|
       t.integer :weapon_id
+      t.integer :user_id
       t.string :name
       t.text :introduction
       t.integer :turn_number
