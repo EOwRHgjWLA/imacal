@@ -1,4 +1,10 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @party = Party.find(params[:party_id])
+    @comments = @party.comments
+  end
 
   def create
     party = Party.find(params[:party_id])

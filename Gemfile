@@ -65,6 +65,7 @@ gem 'devise'
 gem 'kaminari','~> 1.2.1'
 gem 'ransack'
 gem 'redcarpet'
+gem 'rouge'
 
 gem 'dotenv-rails'
 group :production do
