@@ -1,0 +1,128 @@
+<%= form_with(model: [:admin, weapon], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, '武器名' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :attack, '攻撃力' %>
+    <%= form.number_field :attack, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :hitpoint, 'HP' %>
+    <%= form.number_field :hitpoint, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :element, '属性' %>
+    <%= form.select :element, ['火', '水', '土', '風', '光', '闇'], { prompt: '選択してください' }, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :weapontype, '武器種' %>
+    <%= form.select :weapontype, ['剣',
+                            '短剣',
+                            '槍',
+                            '斧',
+                            '杖',
+                            '銃',
+                            '格闘',
+                            '弓',
+                            '楽器',
+                            '刀'],
+                            { prompt: '選択してください' }, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :optimus_might, '通常攻刃' %>
+    <%= form.text_field :optimus_might, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :optimus_betrayal, '通常楚歌' %>
+    <%= form.text_field :optimus_betrayal, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :preemptive, '先制の◯刃' %>
+    <%= form.text_field :preemptive, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :mutinys, '反逆' %>
+    <%= form.text_field :mutinys, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :bahamut, 'バハ武器' %>
+    <%= form.text_field :bahamut, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :optimus_enmity, '通常背水' %>
+    <%= form.text_field :optimus_enmity, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :zeal_enmity, 'オメガ激情' %>
+    <%= form.text_field :zeal_enmity, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :optimus_stamina, '通常渾身' %>
+    <%= form.text_field :optimus_stamina, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :strength_stamina, 'オメガ強壮' %>
+    <%= form.text_field :strength_stamina, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :omega_might, '方陣攻刃' %>
+    <%= form.text_field :omega_might, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :omega_betrayal, '方陣楚歌' %>
+    <%= form.text_field :omega_betrayal, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :omega_enmity, '方陣背水' %>
+    <%= form.text_field :omega_enmity, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :omega_stamina, '方陣渾身' %>
+    <%= form.text_field :omega_stamina, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :ex_might, 'EX攻刃' %>
+    <%= form.text_field :ex_might, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :ex_might_sp, 'EX攻刃（特殊）' %>
+    <%= form.text_field :ex_might_sp, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :eclipse, 'ドラゴニックウェポン第1スキル' %>
+    <%= form.text_field :eclipse, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :optimus_verity, '通常進境' %>
+    <%= form.text_field :optimus_verity, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :omega_verity, '方陣進境' %>
+    <%= form.text_field :omega_verity, class: 'form-control' %>
+  </div>
+
+  <%= form.submit '登録する', class: 'btn btn-primary mb-3' %>
+<% end %>

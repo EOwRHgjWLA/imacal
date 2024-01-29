@@ -7,17 +7,15 @@ class CreateParties < ActiveRecord::Migration[6.1]
       t.text :introduction
       t.integer :turn_number
       t.integer :enemy_defence
-      t.integer :airship
-      t.integer :reactor
-      t.integer :weekness
+      t.string :airship
+      t.string :reactor
+      t.string :weekness
       t.integer :attacks
-      t.integer :remainding_hp
-      t.integer :optimus
-      t.integer :optimus_friend
-      t.integer :omega
-      t.integer :omega_friend
-      t.integer :element
-      t.integer :element_friend
+      t.string :remainding_hp
+      t.string :own_summon_type
+      t.integer :own_summon_buff
+      t.string :friend_summon_type
+      t.integer :friend_summon_buff
       t.timestamps
     end
   end

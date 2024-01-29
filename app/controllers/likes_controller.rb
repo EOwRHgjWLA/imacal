@@ -1,21 +1,16 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user, only: [:create, :destroy]
 
   def create
     @party = Party.find(params[:party_id])
-    current_user.likes(@party)
-    respond_to do |format|
-      format.js
-    end
+    @like = current_user.likes.build(party: @party)
+    @like.save
   end
 
   def destroy
     @party = Party.find(params[:party_id])
-    current_user.unlikes(@party)
-    respond_to do |format|
-      format.js
-    end
+    @like = current_user.likes.find_by(party: @party)
+    @like.destroy
   end
 
 private

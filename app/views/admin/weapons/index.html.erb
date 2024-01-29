@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h4 class="mb-4">武器一覧</h4>
+
+      <% if @weapons.any? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>武器名</th>
+              <th>属性</th>
+              <th>武器種</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @weapons.each do |weapon| %>
+              <tr>
+                <td><%= link_to weapon.name, edit_admin_weapon_path(weapon) %></td>
+                <td><%= weapon.element %></td>
+                <td><%= weapon.weapontype %></td>
+                <td>
+                  <%= link_to '編集', edit_admin_weapon_path(weapon), class: 'btn btn-warning btn-sm' %>
+                </td>
+                <td>
+                  <%= button_to '削除', admin_weapon_path(weapon), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      <%= paginate @weapons %>
+
+      <% else %>
+        <p>登録された武器はありません。</p>
+      <% end %>
+
+      <%= link_to '新しい武器を登録する', new_admin_weapon_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

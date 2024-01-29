@@ -1,0 +1,19 @@
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h4>ユーザー情報</h4>
+      <%= render 'admin/users/info', user: current_user %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h4>コメント一覧</h4>
+      <ul>
+        <% @comments.each do |comment| %>
+          <li>
+            <%= "#{comment.comment} by #{comment.user.display_name} for #{comment.party.name}" %>
+            <%= link_to '削除', admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

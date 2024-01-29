@@ -1,5 +1,11 @@
-<% if current_user.likes?(party) %>
-  <%= link_to "いいねを取り消す", unlike_party_path(party), method: :delete, remote: true, class: "btn btn-danger btn-sm" %>
-<% else %>
-  <%= link_to "いいね", like_party_path(party), method: :post, remote: true, class: "btn btn-outline-danger btn-sm" %>
+<% if user_signed_in? %>
+  <% if current_user.likes?(party) %>
+    <%= link_to 'いいね解除', party_like_path(party), method: :delete, remote: true, class: "btn btn-danger btn-sm" %></br>
+  <% else %>
+    <%= link_to 'いいね', party_like_path(party), method: :post, remote: true, class: "btn btn-outline-danger btn-sm" %></br>
+  <% end %>
 <% end %>
+
+<span class="likes-count">
+  <%= party.likes_count %> いいね
+</span>

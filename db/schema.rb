@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_18_060341) do
+ActiveRecord::Schema.define(version: 2024_01_29_123300) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2024_01_18_060341) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "display_name"
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -74,30 +75,38 @@ ActiveRecord::Schema.define(version: 2024_01_18_060341) do
     t.text "introduction"
     t.integer "turn_number"
     t.integer "enemy_defence"
-    t.integer "airship"
-    t.integer "reactor"
-    t.integer "weekness"
+    t.string "airship"
+    t.string "reactor"
+    t.string "weekness"
     t.integer "attacks"
-    t.integer "remainding_hp"
-    t.integer "optimus"
-    t.integer "optimus_friend"
-    t.integer "omega"
-    t.integer "omega_friend"
-    t.integer "element"
-    t.integer "element_friend"
+    t.string "remainding_hp"
+    t.string "own_summon_type"
+    t.integer "own_summon_buff"
+    t.string "friend_summon_type"
+    t.integer "friend_summon_buff"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "likes_count", default: 0
+  end
+
+  create_table "party_weapons", force: :cascade do |t|
+    t.integer "party_id"
+    t.integer "weapon_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["party_id"], name: "index_party_weapons_on_party_id"
+    t.index ["weapon_id"], name: "index_party_weapons_on_weapon_id"
   end
 
   create_table "partytags", force: :cascade do |t|
-    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "party_id"
+    t.integer "tag_id"
   end
 
-  create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -119,10 +128,35 @@ ActiveRecord::Schema.define(version: 2024_01_18_060341) do
   end
 
   create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.integer "attack"
+    t.integer "hitpoint"
+    t.string "element"
+    t.string "weapontype"
+    t.decimal "optimus_might"
+    t.decimal "optimus_betrayal"
+    t.decimal "preemptive"
+    t.decimal "mutinys"
+    t.decimal "bahamut"
+    t.decimal "optimus_enmity"
+    t.decimal "zeal_enmity"
+    t.decimal "optimus_stamina"
+    t.decimal "strength_stamina"
+    t.decimal "omega_might"
+    t.decimal "omega_betrayal"
+    t.decimal "omega_enmity"
+    t.decimal "omega_stamina"
+    t.decimal "ex_might"
+    t.decimal "ex_might_sp"
+    t.decimal "eclipse"
+    t.decimal "optimus_verity"
+    t.decimal "omega_verity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "party_weapons", "parties"
+  add_foreign_key "party_weapons", "weapons"
 end

@@ -2,7 +2,7 @@
   <tbody>
       <% party.comments.each do |f| %>
       <tr>
-        
+
         <td>
           <%= link_to user_path(f.user) do %>
             <%= image_tag f.user.get_profile_image, size: "100x100" %><br>
@@ -12,7 +12,7 @@
         <td><%= f.comment %></td>
         <td>
           <% if f.user == current_user %>
-            <%= link_to "Destroy", party_comment_path(party, f), method: :delete, class: "btn btn-danger pull-right", remote: true %>
+            <%= link_to "削除する", party_comment_path(party, f), method: :delete, class: "btn btn-danger pull-right", remote: true %>
           <% end %>
         </td>
       </tr>

@@ -1,31 +1,188 @@
-<div class="container">
-  <div class="row no-gutters">
-    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
-      <h5 class="text-dark bg-light p-4 mb-0">画像投稿フォーム</h5>
-      <div class="form-body p-4">
-        <% if @party.errors.any? %>
-          <ul class="alert alert-danger" role="alert">
-            <h6 class="alert-heading">
-              <%= @party.errors.count %>件のエラーが発生しました
-            </h6>
-            <% @party.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
-        <%= form_with model: @party do |f| %>
-          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
-          <div class="input-group mb-3 mt-4">
-            <div class="input-group-prepend">
-              <span class="input-group-text" aria-hidden="true"><i class="fas fa-building"></i></span>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-12">
+    <h3 class="mb-4">新しい編成を作成する</h3>
+    </div>
+    <div class="col-md-5">
+
+
+      <%= form_with(model: @party, url: parties_path, method: :post) do |form| %>
+
+        <div class="section mb-4">
+          <h4>1. パーティの名前と説明文</h4>
+          <%= form.label :name, 'パーティ名' %>
+          <%= form.text_field :name, class: 'form-control' %>
+
+          <%= form.label :introduction, '説明文' %>
+          <%= form.text_area :introduction, class: 'form-control' %>
+        </div>
+
+        <div class="section mb-4">
+          <h4>2. 敵キャラクターの防御値や属性相性</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%= form.label :enemy_defence, '敵キャラクターの防御値' %>
+              <%= form.number_field :enemy_defence, class: 'form-control' %>
             </div>
-            <%= f.text_field :name, class:"form-control", placeholder:"編成名" %>
+            <div class="col-md-6">
+              <%= form.label :weakness, '敵キャラクターの属性相性' %>
+              <%= form.select :weekness, ['有利', '不利', 'その他'], { prompt: '選択してください' }, class: 'form-control' %>
+            </div>
           </div>
-          <%= f.text_area :introduction, class:"form-control", rows:"3", placeholder:"コメントここに" %>
-          <hr>
-          <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+        </div>
+
+        <div class="section mb-4">
+          <h4>3. 騎空艇や炉のバフ</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%= form.label :airship, '騎空艇のバフ' %>
+              <%= form.select :airship, ['1.10',
+                                         '1.09',
+                                         '1.08',
+                                         '1.07',
+                                         '1.06',
+                                         '1.05',
+                                         '1.04',
+                                         '1.03',
+                                         '1.02',
+                                         '1.00'],
+                                         { prompt: '選択してください' }, class: 'form-control' %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :reactor, '炉のバフ' %>
+              <%= form.select :reactor, ['1.10',
+                                         '1.07',
+                                         '1.05',
+                                         '1.00'],
+                                         { prompt: '選択してください' }, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="section mb-4">
+          <h4>4. 召喚石の加護</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%= form.label :own_summon_type, '自身の召喚石の種類' %>
+              <%= form.select :own_summon_type, ['神', 'マグナ', '属性'], { prompt: '選択してください' }, class: 'form-control' %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :own_summon_buff, '自身の召喚石の加護' %>
+              <%= form.number_field :own_summon_buff, class: 'form-control', step: 5, min: 0 %>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <%= form.label :friend_summon_type, 'フレンドの召喚石の種類' %>
+              <%= form.select :friend_summon_type, ['神', 'マグナ', '属性'], { prompt: '選択してください' }, class: 'form-control' %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :friend_summon_buff, 'フレンドの召喚石の加護' %>
+              <%= form.number_field :friend_summon_buff, class: 'form-control', step: 5, min: 0 %>
+            </div>
+          </div>
+        </div>
+        <div class="section mb-4">
+          <h4>5. タグの作成</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%= form.label :tag_ids, 'タグ' %>
+              <%= form.collection_select :tag_ids, Tag.all, :id, :name, { prompt: '選択してください' }, multiple: true, class: 'form-control' %>
+            </div>
+            <div class="col-md-6">
+              <%= form.label :new_tags, '新しいタグ（カンマ区切り）' %>
+              <%= form.text_field :new_tags, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <%= form.submit '作成する', class: 'btn btn-primary' %>
+    </div>
+
+     <div class="col-md-5 offset-md-1">
+      <div class="section mb-4">
+        <h4>武器編成</h4>
+
+        <!-- Bootstrapのフォーム要素を追加 -->
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+
+        <div class="mb-4 input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="weapon_id">武器選択</label>
+          </div>
+          <%= form.select :weapon_id, @weapons.map { |weapon| [weapon.name, weapon.id] }, { prompt: '選択してください' }, class: 'custom-select' %>
+        </div>
+        <%= form.fields_for :party_weapons do |pw_form| %>
+          <div class="mb-4 input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="party_weapon_weapon_id">武器選択</label>
+            </div>
+            <%= pw_form.collection_select :weapon_id, @weapons, :id, :name, { prompt: '選択してください' }, class: 'custom-select' %>
+            <%= pw_form.check_box :_destroy, class: 'form-check-input' %>
+            <%= pw_form.label :_destroy, '削除', class: 'form-check-label' %>
+          </div>
         <% end %>
       </div>
     </div>
+    <% end %>
   </div>
 </div>

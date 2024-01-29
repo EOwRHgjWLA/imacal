@@ -4,6 +4,8 @@ class HomesController < ApplicationController
 
   def top
     @parties = Party.all
+    Rails.logger.debug "Current user: #{current_user.inspect}"
+    Rails.logger.debug "current_user class: #{current_user.class}"
   end
 
   def terms

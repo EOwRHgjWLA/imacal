@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @parties = @user.parties.page(params[:page])
   end
-  
+
   def index
     @users =User.all
     @party = Party.new
@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.update(user_params)
     redirect_to user_path(@user.id)
+  end
+
+  def liked_parties
+    @user = current_user
+    @liked_parties = @user.liked_parties
   end
 
   private

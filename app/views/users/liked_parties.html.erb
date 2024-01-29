@@ -1,0 +1,10 @@
+<!-- app/views/users/liked_parties.html.erb -->
+<div class="container">
+  <h4><%= @user.display_name %>さんのいいねした記事一覧</h4>
+
+  <% if @liked_parties.any? %>
+    <%= render 'shared/liked_parties', liked_parties: @liked_parties %>
+  <% else %>
+    <p>いいねした記事はありません。</p>
+  <% end %>
+</div>

@@ -7,20 +7,46 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-        <% if user_signed_in? %>
+        <% if admin_signed_in? %>
           <li>
-            <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
+            <%= link_to new_admin_weapon_path, class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-khanda"></i> Add Weapons
+            <% end %>
+          </li>
+          <li>
+            <%=  link_to admin_weapons_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-khanda"></i>Weapons index
+            <% end %>
+          </li>
+          <li>
+            <%=  link_to admin_comments_path ,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-khanda"></i> Comments index
+            <% end %>
+          </li>
+          <li>
+            <%=  link_to admin_users_path ,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-khanda"></i> Users index
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+              <i class="fas fa-sign-out-alt"></i> logout
+            <% end %>
+          </li>
+        <% elsif user_signed_in? %>
+          <li>
+            <%= link_to root_path,class: 'nav-link text-light' do %>
               <i class="fas fa-home"></i> Home
             <% end %>
           </li>
           <li>
-            <%=  link_to users_path,class: 'nav-link text-light' do %>
-              <i class="fas fa-users"></i> Users
+            <%=  link_to new_party_path,class: 'nav-link text-light' do %>
+              <i class="fas fa-users"></i> New Party
             <% end %>
           </li>
           <li>
             <%=  link_to parties_path ,class: 'nav-link text-light' do %>
-              <i class="fas fa-book-open"></i> Party
+              <i class="fas fa-book-open"></i> Party Index
             <% end %>
           </li>
           <li>
@@ -48,6 +74,7 @@
             <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
               <i class="fas fa-sign-in-alt"></i> login
             <% end %>
+
           </li>
         <% end %>
         </ul>

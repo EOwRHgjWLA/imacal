@@ -6,7 +6,9 @@ class User < ApplicationRecord
 
   has_many :parties, dependent: :destroy
   has_many :comments, dependent: :destroy
+
   has_many :likes, dependent: :destroy
+  has_many :liked_parties, through: :likes, source: :party
 
   has_one_attached :profile_image
 
@@ -28,5 +30,20 @@ class User < ApplicationRecord
   def guest_user?
     email == GUEST_USER_EMAIL
   end
+
+  def guest?
+    false
+  end
+
+  def unlikes(party)
+    like = likes.find_by(party: party)
+    like.destroy if like
+  end
+
+  def likes?(party)
+    likes.exists?(party_id: party.id)
+  end
+
+
 
 end

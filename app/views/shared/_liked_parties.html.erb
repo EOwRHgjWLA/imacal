@@ -1,0 +1,15 @@
+<div class="row mt-4">
+  <% liked_parties.each do |f| %>
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title"><%= link_to f.name, f %></h6>
+          <h6 class="card-title"><%= f.introduction %></h6>
+            <div class="mt-3">
+              <%= render 'shared/like_btn', f: f, party: f %>
+            </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
